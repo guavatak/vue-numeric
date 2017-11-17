@@ -4,10 +4,13 @@
     @blur="onBlurHandler"
     @input="onInputHandler"
     @focus="onFocusHandler"
+    @keyup="onKeyupHandler"
+    @keydown="onKeydownHandler"
     ref="numeric"
     type="tel"
     v-model="amount"
     v-if="!readOnly"
+    style="-webkit-ime-mode:disabled;-moz-ime-mode:disabled;-ms-ime-mode:disabled;ime-mode:disabled;"
   >
   <span v-else ref="readOnly">{{ amount }}</span>
 </template>
@@ -204,6 +207,36 @@ export default {
      */
     onInputHandler () {
       this.process(this.amountNumber)
+    },
+
+    onKeyupHandler (e) {
+      var ele = e.srcElement;
+      var mached = ele.value.match(/[^0-9.,]/g);
+      if(mached != null) {
+        ele.value = ele.value.replace(/[^0-9.,]/g,'');
+      }
+    },
+
+    onKeydownHandler (e) {
+      var key = e.which || e.charCode || e.keyCode || 0;
+      // allow backspace, tab, delete, arrows, numbers and keypad numbers ONLY
+      if (
+        key == 8 ||
+        key == 9 ||
+        key == 86 ||
+        key == 109 ||
+        key == 189 ||
+        key == 46 ||
+        (key == 110) || (key == 190) ||
+        (key >= 37 && key <= 40) ||
+        (key >= 48 && key <= 57) ||
+        (key >= 96 && key <= 105)) {
+        this.$emit('keydown', e);
+        return true;
+      }else {
+        e.stopPropagation();
+        e.preventDefault();
+      }
     },
 
     /**
