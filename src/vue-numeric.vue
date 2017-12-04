@@ -203,10 +203,9 @@
         valueNumber (newValue) {
             if (this.$refs.numeric !== document.activeElement) {
                 if(this.newValue == null || this.newValue == '') {
-                    this.amount = null;
+                    this.amount = '';
                 }else {
                     this.amount = this.format(newValue);
-                    this.$emit('input', this.amount);
                 }
             }
         },
@@ -266,6 +265,7 @@
             // In case of delayed props value.
             setTimeout(() => {
                 if(!(this.valueNumber == null || this.valueNumber == '')) {
+                    console.log('setTimeout : ' + this.valueNumber);
                   this.process(this.valueNumber);
                   this.amount = this.format(this.valueNumber);
                 }
@@ -341,9 +341,7 @@
          * Handle input event.
          */
         onInputHandler () {
-            if(this.amountNumber != null && this.amountNumber != '') {
-                this.process(this.amountNumber);
-            }
+              this.process(this.amountNumber);
         },
 
         /**
