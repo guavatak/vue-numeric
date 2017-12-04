@@ -356,6 +356,7 @@
          * @return {String}
          */
         format (value) {
+            console.log('format : ' + value);
             return accounting.formatMoney(value, {
                 symbol: this.currency,
                 format: this.symbolPosition,
@@ -371,9 +372,11 @@
          * @return {Number}
          */
         unformat (value) {
+            console.log('unformat : ' + value);
             if((typeof value === 'string' && value === '') || value == null) {
                 return this.emptyValue;
             }
+            console.log('unformating : ' + value);
             return accounting.unformat(value, this.decimalSeparator)
         }
     }
