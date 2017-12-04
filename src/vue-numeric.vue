@@ -198,7 +198,9 @@
          */
         valueNumber (newValue) {
             if (this.$refs.numeric !== document.activeElement) {
-                if(!(this.newValue == null || this.newValue == '')) {
+                if(this.newValue == null || this.newValue == '') {
+                    this.amount = null;
+                }else {
                     this.amount = this.format(newValue);
                 }
             }
@@ -274,7 +276,9 @@
          */
         onBlurHandler (e) {
             this.$emit('blur', e);
-            if(!(this.valueNumber == null || this.valueNumber == '')) {
+            if(this.valueNumber == null || this.valueNumber == '') {
+                this.amount = null;
+            }else {
                 this.amount = this.format(this.valueNumber);
             }
         },
