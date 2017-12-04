@@ -326,7 +326,7 @@
          * Handle input event.
          */
         onInputHandler () {
-              this.process(this.amountNumber);
+            this.process(this.amountNumber);
         },
 
         /**
@@ -334,6 +334,7 @@
          * @param {Number} value
          */
         process (value) {
+            console.log('process : ' + value);
             if(value != null && value != '') {
                 if (value >= this.max) this.update(this.max)
                 if (value <= this.min) this.update(this.min)
@@ -347,6 +348,7 @@
          * @param {Number} value
          */
         update (value) {
+            console.log('update : ' + value);
             this.$emit('input', Number(accounting.toFixed(value, this.precision)))
         },
 
@@ -356,7 +358,6 @@
          * @return {String}
          */
         format (value) {
-            console.log('format : ' + value);
             return accounting.formatMoney(value, {
                 symbol: this.currency,
                 format: this.symbolPosition,
@@ -372,11 +373,9 @@
          * @return {Number}
          */
         unformat (value) {
-            console.log('unformat : ' + value);
             if((typeof value === 'string' && value === '') || value == null) {
                 return this.emptyValue;
             }
-            console.log('unformating : ' + value);
             return accounting.unformat(value, this.decimalSeparator)
         }
     }
