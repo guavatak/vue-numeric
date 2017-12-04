@@ -147,7 +147,9 @@
          * @return {Number}
          */
         amountNumber () {
-            return this.unformat(this.amount)
+            if(!(this.amount == null || this.amount == '')) {
+                return this.unformat(this.amount);
+            }
         },
 
         /**
@@ -155,7 +157,9 @@
          * @return {Number}
          */
         valueNumber () {
-            return this.unformat(this.value)
+            if(!(this.value == null || this.value == '')) {
+                return this.unformat(this.value);
+            }
         },
 
         /**
@@ -215,38 +219,46 @@
          * Immediately reflect separator changes
          */
         separator () {
-            this.process(this.valueNumber)
-            this.amount = this.format(this.valueNumber)
+            if(!(this.valueNumber == null || this.valueNumber == '')) {
+                this.process(this.valueNumber);
+                this.amount = this.format(this.valueNumber);
+            }
         },
 
         /**
          * Immediately reflect currency changes
          */
         currency () {
-            this.process(this.valueNumber)
-            this.amount = this.format(this.valueNumber)
+            if(!(this.valueNumber == null || this.valueNumber == '')) {
+                this.process(this.valueNumber);
+                this.amount = this.format(this.valueNumber);
+            }
         },
 
         /**
          * Immediately reflect precision changes
          */
         precision () {
-            this.process(this.valueNumber)
-            this.amount = this.format(this.valueNumber)
+            if(!(this.valueNumber == null || this.valueNumber == '')) {
+                this.process(this.valueNumber);
+                this.amount = this.format(this.valueNumber);
+            }
         }
     },
 
     mounted () {
         // Set default value props when placeholder undefined.
         if (!this.placeholder) {
-            this.process(this.valueNumber)
-            this.amount = this.format(this.valueNumber)
+            if(!(this.valueNumber == null || this.valueNumber == '')) {
+                this.process(this.valueNumber);
+                this.amount = this.format(this.valueNumber);
+                // In case of delayed props value.
+                setTimeout(() => {
+                    this.process(this.valueNumber);
+                    this.amount = this.format(this.valueNumber);
+                }, 500);
+            }
 
-            // In case of delayed props value.
-            setTimeout(() => {
-                this.process(this.valueNumber)
-            this.amount = this.format(this.valueNumber)
-        }, 500)
         }
 
         // Set read-only span element's class
@@ -357,7 +369,7 @@
          * @return {Number}
          */
         unformat (value) {
-            const toUnformat = typeof value === 'string' && value === '' || value == null ? this.emptyValue : value;
+            const toUnformat = ((typeof value === 'string' && value === '') || value == null) ? this.emptyValue : value;
             return accounting.unformat(toUnformat, this.decimalSeparator)
         }
     }
