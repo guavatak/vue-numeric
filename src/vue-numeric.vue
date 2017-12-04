@@ -147,7 +147,9 @@
          * @return {Number}
          */
         amountNumber () {
-            if(!(this.amount == null || this.amount == '')) {
+            if(this.amount == null || this.amount == '') {
+                return null;
+            }else {
                 return this.unformat(this.amount);
             }
         },
@@ -157,7 +159,9 @@
          * @return {Number}
          */
         valueNumber () {
-            if(!(this.value == null || this.value == '')) {
+            if(this.value == null || this.value == '') {
+                return null;
+            }else {
                 return this.unformat(this.value);
             }
         },
