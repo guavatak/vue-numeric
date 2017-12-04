@@ -201,6 +201,9 @@
          * @param {Number} newValue
          */
         valueNumber (newValue) {
+            console.log(newValue);
+            console.log(this.$refs.numeric);
+            console.log(document.activeElement);
             if (this.$refs.numeric !== document.activeElement) {
                 if(this.newValue == null || this.newValue == '') {
                     this.amount = null;
@@ -387,8 +390,10 @@
          * @return {Number}
          */
         unformat (value) {
-            const toUnformat = ((typeof value === 'string' && value === '') || value == null) ? this.emptyValue : value;
-            return accounting.unformat(toUnformat, this.decimalSeparator)
+            if((typeof value === 'string' && value === '') || value == null) {
+                return this.emptyValue;
+            }
+            return accounting.unformat(value, this.decimalSeparator)
         }
     }
     }
