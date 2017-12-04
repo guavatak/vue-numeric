@@ -89,7 +89,7 @@ export default {
      * v-model value.
      */
     value: {
-      default: 0,
+      default: '',
       required: false,
       type: [Number, String]
     },
