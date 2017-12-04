@@ -179,8 +179,12 @@ export default {
      * @param {Object} e
      */
     onBlurHandler (e) {
-      this.$emit('blur', e)
-      this.amount = this.format(this.valueNumber)
+      this.$emit('blur', e);
+      if( this.valueNumber == null || this.valueNumber == '') {
+          this.amount = null;
+      }else {
+          this.amount = this.format(this.valueNumber);
+      }
     },
 
     /**
@@ -206,7 +210,9 @@ export default {
      * Handle input event.
      */
     onInputHandler () {
-      this.process(this.amountNumber)
+        if(this.amountNumber != null && this.amountNumber != '') {
+            this.process(this.amountNumber);
+        }
     },
 
     onKeyupHandler (e) {
@@ -296,7 +302,11 @@ export default {
      */
     valueNumber (newValue) {
       if (this.$refs.numeric !== document.activeElement) {
-        this.amount = this.format(newValue)
+          if(newValue == null || newValue == '') {
+              this.amount = null;
+          }else {
+              this.amount = this.format(newValue)
+          }
       }
     },
 
