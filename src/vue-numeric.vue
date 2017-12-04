@@ -104,8 +104,8 @@
              */
             value: {
                 type: [Number, String],
-                default: 0,
-                required: true
+                default: '',
+                required: false
             },
 
             /**
@@ -357,7 +357,7 @@
          * @return {Number}
          */
         unformat (value) {
-            const toUnformat = typeof value === 'string' && value === '' ? this.emptyValue : value
+            const toUnformat = typeof value === 'string' && value === '' || value == null ? this.emptyValue : value;
             return accounting.unformat(toUnformat, this.decimalSeparator)
         }
     }
