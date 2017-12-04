@@ -256,13 +256,15 @@
             if(!(this.valueNumber == null || this.valueNumber == '')) {
                 this.process(this.valueNumber);
                 this.amount = this.format(this.valueNumber);
-                // In case of delayed props value.
-                setTimeout(() => {
-                    this.process(this.valueNumber);
-                    this.amount = this.format(this.valueNumber);
-                }, 500);
             }
 
+            // In case of delayed props value.
+            setTimeout(() => {
+                if(!(this.valueNumber == null || this.valueNumber == '')) {
+                  this.process(this.valueNumber);
+                  this.amount = this.format(this.valueNumber);
+                }
+            }, 500);
         }
 
         // Set read-only span element's class
