@@ -198,7 +198,9 @@
          */
         valueNumber (newValue) {
             if (this.$refs.numeric !== document.activeElement) {
-                this.amount = this.format(newValue)
+                if(!(this.newValue == null || this.newValue == '')) {
+                    this.amount = this.format(newValue);
+                }
             }
         },
 
