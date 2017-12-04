@@ -189,7 +189,7 @@ export default {
      */
     onFocusHandler (e) {
       this.$emit('focus', e)
-      if (this.valueNumber === 0) {
+      if (this.valueNumber === 0 || this.valueNumber == null || this.valueNumber == '') {
         this.amount = null
       } else {
         this.amount = accounting.formatMoney(this.valueNumber, {
@@ -264,6 +264,9 @@ export default {
      * @return {String}
      */
     format (value) {
+      if(value == null || value === '') {
+          return null;
+      }
       return accounting.formatMoney(value, {
         symbol: this.currency,
         format: this.symbolPosition,
@@ -279,6 +282,9 @@ export default {
      * @return {Number}
      */
     unformat (value) {
+      if(value == null || value === '') {
+          return null;
+      }
       return accounting.unformat(value, this.decimalSeparator)
     }
   },
