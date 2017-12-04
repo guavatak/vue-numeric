@@ -271,8 +271,10 @@
          * @param {Object} e
          */
         onBlurHandler (e) {
-            this.$emit('blur', e)
-            this.amount = this.format(this.valueNumber)
+            this.$emit('blur', e);
+            if(!(this.valueNumber == null || this.valueNumber == '')) {
+                this.amount = this.format(this.valueNumber);
+            }
         },
 
         /**
@@ -281,7 +283,7 @@
          */
         onFocusHandler (e) {
             this.$emit('focus', e)
-            if (this.valueNumber === 0) {
+            if (this.valueNumber === 0 || this.valueNumber == null || this.valueNumber == '') {
                 this.amount = null
             } else {
                 this.amount = accounting.formatMoney(this.valueNumber, {
@@ -326,7 +328,9 @@
          * Handle input event.
          */
         onInputHandler () {
-            this.process(this.amountNumber)
+            if(this.amountNumber != null && this.amountNumber != '') {
+                this.process(this.amountNumber);
+            }
         },
 
         /**
@@ -334,10 +338,12 @@
          * @param {Number} value
          */
         process (value) {
-            if (value >= this.max) this.update(this.max)
-            if (value <= this.min) this.update(this.min)
-            if (value > this.min && value < this.max) this.update(value)
-            if (!this.minus && value < 0) this.min >= 0 ? this.update(this.min) : this.update(0)
+            if(value != null && value != '') {
+                if (value >= this.max) this.update(this.max)
+                if (value <= this.min) this.update(this.min)
+                if (value > this.min && value < this.max) this.update(value)
+                if (!this.minus && value < 0) this.min >= 0 ? this.update(this.min) : this.update(0)
+            }
         },
 
         /**
