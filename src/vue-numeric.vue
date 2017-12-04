@@ -197,6 +197,7 @@
                 if(this.newValue == null || this.newValue == '') {
                     this.amount = '';
                 }else {
+                    this.process(newValue);
                     this.amount = this.format(newValue);
                 }
             }
@@ -334,7 +335,6 @@
          * @param {Number} value
          */
         process (value) {
-            console.log('process : ' + value);
             if(value != null && value != '') {
                 if (value >= this.max) this.update(this.max)
                 if (value <= this.min) this.update(this.min)
@@ -348,7 +348,6 @@
          * @param {Number} value
          */
         update (value) {
-            console.log('update : ' + value);
             this.$emit('input', Number(accounting.toFixed(value, this.precision)))
         },
 
