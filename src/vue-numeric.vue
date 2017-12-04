@@ -201,14 +201,12 @@
          * @param {Number} newValue
          */
         valueNumber (newValue) {
-            console.log(newValue);
-            console.log(this.$refs.numeric);
-            console.log(document.activeElement);
             if (this.$refs.numeric !== document.activeElement) {
                 if(this.newValue == null || this.newValue == '') {
                     this.amount = null;
                 }else {
                     this.amount = this.format(newValue);
+                    this.$emit('input', this.amount);
                 }
             }
         },
@@ -286,7 +284,7 @@
         onBlurHandler (e) {
             this.$emit('blur', e);
             if(this.valueNumber == null || this.valueNumber == '') {
-                this.amount = null;
+                this.amount = '';
             }else {
                 this.amount = this.format(this.valueNumber);
             }
@@ -297,9 +295,9 @@
          * @param {Object} e
          */
         onFocusHandler (e) {
-            this.$emit('focus', e)
+            this.$emit('focus', e);
             if (this.valueNumber === 0 || this.valueNumber == null || this.valueNumber == '') {
-                this.amount = null
+                this.amount = '';
             } else {
                 this.amount = accounting.formatMoney(this.valueNumber, {
                     symbol: '',
